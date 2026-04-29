@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Vue.js</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        #app {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .secao {
+            margin-bottom: 30px;
+        }
+        
+        .contador {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        
+        .numero {
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+        
+        .botoes {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-adicionar {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-adicionar:hover {
+            background: #5568d3;
+        }
+        
+        .btn-menos {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .btn-menos:hover {
+            background: #ff5252;
+        }
+        
+        .btn-mais {
+            background: #51cf66;
+            color: white;
+        }
+        
+        .btn-mais:hover {
+            background: #40c057;
+        }
+        
+        .btn-resetar {
+            background: #ffa94d;
+            color: white;
+        }
+        
+        .btn-resetar:hover {
+            background: #ff9933;
+        }
+        
+        .btn-deletar {
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .input-grupo {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .tarefas-list {
+            list-style: none;
+        }
+        
+        .tarefa-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .tarefa-item:hover {
+            background: #f0f0f0;
+        }
+        
+        .tarefa-item.concluida {
+            opacity: 0.6;
+        }
+        
+        .tarefa-item.concluida .texto {
+            text-decoration: line-through;
+            color: #999;
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+        
+        .texto {
+            flex: 1;
+            color: #333;
+        }
+        
+        .contador-tarefas {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        .mensagem {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>🎉 Teste Vue.js</h1>
+        
+        <div class="secao">
+            <h2>📊 Contador</h2>
+            <div class="contador">
+                <p>Você clicou: <span class="numero">{{ contador }}</span> vezes</p>
+                <div class="botoes">
+                    <button class="btn-menos" @click="contador--">➖ Diminuir</button>
+                    <button class="btn-mais" @click="contador++">➕ Aumentar</button>
+                    <button class="btn-resetar" @click="contador = 0">🔄 Resetar</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="secao">
+            <h2>✅ Lista de Tarefas</h2>
+            
+            <div class="input-grupo">
+                <input 
+                    type="text" 
+                    v-model="novaTarefa" 
+                    placeholder="Digite uma tarefa..."
+                    @keyup.enter="adicionarTarefa"
+                >
+                <button class="btn-adicionar" @click="adicionarTarefa">Adicionar</button>
+            </div>
+            
+            <ul class="tarefas-list" v-if="tarefas.length > 0">
+                <li v-for="(tarefa, index) in tarefas" :key="index" class="tarefa-item" :class="{ concluida: tarefa.completa }">
+                    <input 
+                        type="checkbox" 
+                        v-model="tarefa.completa"
+                    >
+                    <span class="texto">{{ tarefa.texto }}</span>
+                    <button class="btn-deletar" @click="deletarTarefa(index)">❌ Deletar</button>
+                </li>
+            </ul>
+            
+            <div class="mensagem" v-else>
+                Nenhuma tarefa adicionada. Crie uma! 🎯
+            </div>
+            
+            <div class="contador-tarefas">
+                Total: {{ tarefas.length }} | Completas: {{ tarefasCompletas }} | Pendentes: {{ tarefasPendentes }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    contador: 0,
+                    novaTarefa: '',
+                    tarefas: [
+                        { texto: 'Aprender Vue.js', completa: false },
+                        { texto: 'Criar um projeto', completa: false }
+                    ]
+                };
+            },
+            computed: {
+                tarefasCompletas() {
+                    return this.tarefas.filter(t => t.completa).length;
+                },
+                tarefasPendentes() {
+                    return this.tarefas.filter(t => !t.completa).length;
+                }
+            },
+            methods: {
+                adicionarTarefa() {
+                    if (this.novaTarefa.trim() !== '') {
+                        this.tarefas.push({
+                            texto: this.novaTarefa,
+                            completa: false
+                        });
+                        this.novaTarefa = '';
+                    }
+                },
+                deletarTarefa(index) {
+                    this.tarefas.splice(index, 1);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
