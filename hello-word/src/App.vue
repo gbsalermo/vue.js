@@ -1,128 +1,34 @@
 <template>
-<!--   <TheHeader v-if="showHeader"/>
+<div>
+  {{ fullName }} <br> <br>
 
-    <h1 :class="classVar">
-    teste
-  </h1>
+  <h2>Todos em aberto</h2>
 
-  <div v-show="showName">
-    Nome: {{ firstName }} <br>
-    Sobrenome: {{ lastName }}
-  </div>
-
-  <div v-if="acessLevel ==='admin'"> Usuario Admin</div>
-  <div v-else-if="acessLevel === 'Marketing'">Usuario Marketing</div>
-  <div v-else>Usuario User</div>
-
-  <h1 :class = "{'title': false, 'title-home': isHome}">
-    Curso vue 3
-  </h1>
-
-  <p :class="['text', {'title-home': isHome}]">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo omnis harum facere amet ea iusto praesentium quisquam quam facilis veritatis tempora aspernatur, quos consectetur impedit nostrum, quia eos maiores inventore.
-  </p>
-  <p :style="{'color': 'aqua', 'background-color': 'black'}">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo omnis harum facere amet ea iusto praesentium quisquam quam facilis veritatis tempora aspernatur, quos consectetur impedit nostrum, quia eos maiores inventore.
-  </p>
-
-  <div v-for="(obj, index) in todos"
-      v-bind:key="obj.id"
-      class="todos-item"
-  >
-      {{index}} - {{ obj.title }}
-  </div>
-  <img
-
-  alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-   -->
-
-
-
-   <button v-on:click="onClick()">
-    Enviar
-   </button>
-
-   <br>
-
-   <div @mouseover="onMouseover"
-        @mouseout="onMouseOut"
-   >
-    Mouse over
-   </div>
-
-   <br><br>
-   <form action="https://google.com"
-    @v-on:submit="onSubmit()"
-   >
-      <button type="submit">
-        Enviar
-      </button>
-
-   </form>
- <!--  <div>
-    two way data binding
-    v-model -> formularios
-  </div>
-
-  <br><br>
-
-  <div>
-    <label>Nome</label>
-  <input 
-        v-model="name"
-        type="text"
-  ><br>
-
-  {{ name }}
-
-  </div>
-
-  <br>><br>
-
-  <div>
-    <label>Sports</label><br>
-    <select v-model="sports">
-      
-      <option value="">ESCOLHA</option>
-      <option value="futebol">FUTEBOL</option>
-      <option value="basquete">BASQUETE</option>
-      <option value="tenis">TENIS</option>
-    </select><br>
-    {{ sports }}
-  </div>
-
-  <br><br>
-  <div>
-    <label>News Letter</label>
-    <input
-      v-model="newsletter"
-      type="radio"
-      value="Sim"
-      > Sim
-    <input
-      v-model="newsletter"
-      type="radio"
-      value="Não"
-      > Não
-      <br><br>    
-      {{ newsletter }}
-  </div>
+  <div v-for="todo in uncompletedTodo"
+  :key="todo.id">
+  {{ todo.title }} <span>{{ todo.completed }}</span>
+</div>
 
 <br><br>
 
-<div>
-<label>Contrato</label><br>
-<input
-    v-model="contract"
-    type="checkbox"
-    >aceita nossos termos... 
+    <h2>TODOS EM ABERTO</h2>
+  <div v-for="todo in completedTodo"
+    :key="todo.id">
+    {{ todo.title }} <span>{{ todo.completed }}</span>
+  </div>    
+  <br><br><br>
 
-    <br>
+  <h2>TODOS</h2>
+  <div v-for="todo in todos"
+    :key="todo.id">
+    
+    <input v-model="todo.completed"
+      type="checkbox"
+    >
+    {{ todo.title }}
+  </div>
 
-    {{ contract }}
-
-</div> -->
+</div>
 </template>
 
 <script>
@@ -131,33 +37,15 @@ import TheHeader from './components/TheHeader.vue'; */
 
 export default {
   name: 'App',
-/*   components: {
-    HelloWorld,
-      TheHeader
-  }, */
   data(){
     return{
 
-
-
-/* 
-      teste do v-model
-      name: '',
-      sports: '',
-      newsletter: '',
-      contract: '', */
-
- /*      pClass: 'text',
-      isHome: true,
-      classVar: 'title',
-      /* showHeader: true,
-      firstName: 'Enzo',
-      lastName: 'Gabriel',
-      showtName: false,
-      acessLevel: 'admin' */
-
- /*      todos: 	
-[
+      user:{
+        firstName: 'Jon',
+        lastName: 'Snow'
+      },
+      todos:
+        [
   {
     "userId": 1,
     "id": 1,
@@ -188,24 +76,30 @@ export default {
     "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
     "completed": false
   }
-] */
+]
+      
     }
   },
 
-    methods: {
-      onClick(){
-        console.log('click');
-      },
-      onMouseover($evt){
-        console.log('mouse over', $evt);
-      },
-      onMouseOut($evt){
-        console.log('mouse out', $evt)
-      },
-      onSubmit(){
-        console.log('submit');
-      },
+  computed: {
+    fullName(){
+     return `${this.user.firstName} ${this.user.lastName}`
     },
+    uncompletedTodo(){
+      return this.todos.filter(todo => !todo.completed);
+    },
+    completedTodo(){
+      return this.todos.filter(todo => todo.completed);
+    }
+
+  },
+
+    methods: {
+
+      click(){
+        console.log('this');
+      }
+    }
   }
 </script>
 
