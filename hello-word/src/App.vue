@@ -1,5 +1,5 @@
 <template>
-  <TheHeader v-if="showHeader"/>
+<!--   <TheHeader v-if="showHeader"/>
 
     <h1 :class="classVar">
     teste
@@ -35,22 +35,91 @@
 
   alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
-  
+   -->
+  <div>
+    two way data binding
+    v-model -> formularios
+  </div>
+
+  <br><br>
+
+  <div>
+    <label>Nome</label>
+  <input 
+        v-model="name"
+        type="text"
+  ><br>
+
+  {{ name }}
+
+  </div>
+
+  <br>><br>
+
+  <div>
+    <label>Sports</label><br>
+    <select v-model="sports">
+      
+      <option value="">ESCOLHA</option>
+      <option value="futebol">FUTEBOL</option>
+      <option value="basquete">BASQUETE</option>
+      <option value="tenis">TENIS</option>
+    </select><br>
+    {{ sports }}
+  </div>
+
+  <br><br>
+  <div>
+    <label>News Letter</label>
+    <input
+      v-model="newsletter"
+      type="radio"
+      value="Sim"
+      > Sim
+    <input
+      v-model="newsletter"
+      type="radio"
+      value="Não"
+      > Não
+      <br><br>    
+      {{ newsletter }}
+  </div>
+
+<br><br>
+
+<div>
+<label>Contrato</label><br>
+<input
+    v-model="contract"
+    type="checkbox"
+    >aceita nossos termos... 
+
+    <br>
+
+    {{ contract }}
+
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import TheHeader from './components/TheHeader.vue';
+/* import HelloWorld from './components/HelloWorld.vue'
+import TheHeader from './components/TheHeader.vue'; */
 
 export default {
   name: 'App',
-  components: {
+/*   components: {
     HelloWorld,
       TheHeader
-  },
+  }, */
   data(){
     return{
-      pClass: 'text',
+
+      name: '',
+      sports: '',
+      newsletter: '',
+      contract: '',
+
+ /*      pClass: 'text',
       isHome: true,
       classVar: 'title',
       /* showHeader: true,
@@ -59,7 +128,7 @@ export default {
       showtName: false,
       acessLevel: 'admin' */
 
-      todos: 	
+ /*      todos: 	
 [
   {
     "userId": 1,
@@ -91,7 +160,7 @@ export default {
     "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
     "completed": false
   }
-]
+] */
     }
   }
 }
