@@ -36,7 +36,31 @@
   alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
    -->
-  <div>
+
+
+
+   <button v-on:click="onClick()">
+    Enviar
+   </button>
+
+   <br>
+
+   <div @mouseover="onMouseover"
+        @mouseout="onMouseOut"
+   >
+    Mouse over
+   </div>
+
+   <br><br>
+   <form action="https://google.com"
+    @v-on:submit="onSubmit()"
+   >
+      <button type="submit">
+        Enviar
+      </button>
+
+   </form>
+ <!--  <div>
     two way data binding
     v-model -> formularios
   </div>
@@ -98,7 +122,7 @@
 
     {{ contract }}
 
-</div>
+</div> -->
 </template>
 
 <script>
@@ -114,10 +138,14 @@ export default {
   data(){
     return{
 
+
+
+/* 
+      teste do v-model
       name: '',
       sports: '',
       newsletter: '',
-      contract: '',
+      contract: '', */
 
  /*      pClass: 'text',
       isHome: true,
@@ -162,8 +190,23 @@ export default {
   }
 ] */
     }
+  },
+
+    methods: {
+      onClick(){
+        console.log('click');
+      },
+      onMouseover($evt){
+        console.log('mouse over', $evt);
+      },
+      onMouseOut($evt){
+        console.log('mouse out', $evt)
+      },
+      onSubmit(){
+        console.log('submit');
+      },
+    },
   }
-}
 </script>
 
 <style>
