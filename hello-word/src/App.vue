@@ -1,6 +1,10 @@
 <template>
   <TheHeader v-if="showHeader"/>
 
+    <h1 :class="classVar">
+    teste
+  </h1>
+
   <div v-show="showName">
     Nome: {{ firstName }} <br>
     Sobrenome: {{ lastName }}
@@ -9,6 +13,17 @@
   <div v-if="acessLevel ==='admin'"> Usuario Admin</div>
   <div v-else-if="acessLevel === 'Marketing'">Usuario Marketing</div>
   <div v-else>Usuario User</div>
+
+  <h1 :class = "{'title': false, 'title-home': isHome}">
+    Curso vue 3
+  </h1>
+
+  <p :class="['text', {'title-home': isHome}]">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo omnis harum facere amet ea iusto praesentium quisquam quam facilis veritatis tempora aspernatur, quos consectetur impedit nostrum, quia eos maiores inventore.
+  </p>
+  <p :style="{'color': 'aqua', 'background-color': 'black'}">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo omnis harum facere amet ea iusto praesentium quisquam quam facilis veritatis tempora aspernatur, quos consectetur impedit nostrum, quia eos maiores inventore.
+  </p>
 
   <div v-for="(obj, index) in todos"
       v-bind:key="obj.id"
@@ -35,6 +50,9 @@ export default {
   },
   data(){
     return{
+      pClass: 'text',
+      isHome: true,
+      classVar: 'title',
       /* showHeader: true,
       firstName: 'Enzo',
       lastName: 'Gabriel',
@@ -80,6 +98,21 @@ export default {
 </script>
 
 <style>
+
+
+.title-home{
+  font-size: 40px;
+  color: green;
+}
+
+.title{
+    font-size: 20px;
+    color:black;
+}
+
+.text{
+  color: red;
+}
 
 .todos-item{
   background: #000;
