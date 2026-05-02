@@ -1,34 +1,36 @@
 <template>
 <div>
-  {{ fullName }} <br> <br>
+  <input v-model="name" 
+  type="text">
 
-  <h2>Todos em aberto</h2>
+  <br>
+  {{ name }}
 
-  <div v-for="todo in uncompletedTodo"
-  :key="todo.id">
-  {{ todo.title }} <span>{{ todo.completed }}</span>
+  <br><br>
+   <input v-model="user.firstName" 
+  type="text">
+
+  <br>
+   <input v-model="user.lastName" 
+  type="text">
+
+  <br><br>
+  {{ user.firstName }} {{ user.lastName }} 
+  
+
+
+<br><br><br>
+
+<select v-model="pageCount">
+  <option value="5"> 5 </option>
+  <option value="10"> 10 </option>
+  <option value="15"> 15 </option>
+</select> <br>
+
+{{pageCount}}
+
 </div>
 
-<br><br>
-
-    <h2>TODOS EM ABERTO</h2>
-  <div v-for="todo in completedTodo"
-    :key="todo.id">
-    {{ todo.title }} <span>{{ todo.completed }}</span>
-  </div>    
-  <br><br><br>
-
-  <h2>TODOS</h2>
-  <div v-for="todo in todos"
-    :key="todo.id">
-    
-    <input v-model="todo.completed"
-      type="checkbox"
-    >
-    {{ todo.title }}
-  </div>
-
-</div>
 </template>
 
 <script>
@@ -38,69 +40,47 @@ import TheHeader from './components/TheHeader.vue'; */
 export default {
   name: 'App',
   data(){
-    return{
+    return{    
+        name: '',
+        pageCount: 5,
+        user: {
+            firstName: '',
+            lastName: '',
+        }
 
-      user:{
-        firstName: 'Jon',
-        lastName: 'Snow'
-      },
-      todos:
-        [
-  {
-    "userId": 1,
-    "id": 1,
-    "title": "delectus aut autem",
-    "completed": false
-  },
-  {
-    "userId": 1,
-    "id": 2,
-    "title": "quis ut nam facilis et officia qui",
-    "completed": false
-  },
-  {
-    "userId": 1,
-    "id": 3,
-    "title": "fugiat veniam minus",
-    "completed": false
-  },
-  {
-    "userId": 1,
-    "id": 4,
-    "title": "et porro tempora",
-    "completed": true
-  },
-  {
-    "userId": 1,
-    "id": 5,
-    "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
-    "completed": false
-  }
-]
-      
     }
+  },
+
+  watch:{
+    name(){
+          this.saveUsername()
+    },
+    pageCount(){
+      this.changePage();
+    },
+    user: {
+        handler() {
+          console.log('User alterado');
+        },
+        deep: true
+      },
   },
 
   computed: {
-    fullName(){
-     return `${this.user.firstName} ${this.user.lastName}`
-    },
-    uncompletedTodo(){
-      return this.todos.filter(todo => !todo.completed);
-    },
-    completedTodo(){
-      return this.todos.filter(todo => todo.completed);
-    }
-
+    
   },
 
     methods: {
+      saveUsername(){
+        console.log('Ajax');
+        console.log(this.name);
+      },
+      changePage(){
+        console.log('Ajax changePage');
+      },
 
-      click(){
-        console.log('this');
-      }
-    }
   }
+}
 </script>
 
 <style>
