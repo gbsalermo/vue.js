@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aula 1 - vuejs 2</title>
+</head>
+<body>
+
+    <div id="app">
+        <h1>{{ titulo }}</h1> <!-- Para fazer impressoes no vuejs ce usa duas chaves, no caso ao lado ele imprime o que esta dentro de data e com nome titulo -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <script>
+        var app = new Vue({//Instanciando um novo vue
+
+            //O vuejs precisa de dois elementos para funcionar
+            //primeiro o el(elemento pai)
+            el: "#app",
+            //segundo elemento data
+            data: { titulo: 'Aula 01 - Vuejs 2'}
+            //Para isso funcionar vou chamar por meio de uma div la em cima indicando app
+        
+        });
+    </script>
+    
+</body>
+</html>
